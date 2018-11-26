@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Emotion Tracker</title>
-	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://annychang1111.github.io/Emotion-Tracker-Prototype/node_modules/socket.io-client/dist/socket.io.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel = "stylesheet" type = "text/css" href = "style.css" />
 </head>
@@ -25,70 +25,19 @@
 </body>
 </html>
 <script>
-	var socket = io();
-	var contentedNum = 0, relaxedNum = 0, calmNum = 0, fatiguedNum = 0, boredNum = 0, depressedNum = 0, upsetNum = 0, stressedNum = 0, nervousNum = 0, alertNum = 0, excitedNum = 0, happyNum = 0;
+	var socket = io('https://emotiontracking.herokuapp.com/');
 	var recordData = [];
 	var emotionTags = ['contented', 'relaxed', 'calm', 'fatigued', 'bored', 'depressed', 'upset', 'stressed', 'nervous', 'alert', 'excited', 'happy'];
 	var emotionResult = [];
 	function recordEmotion(emotion){
 		var emotionType = "";
 		emotionType = emotion;
-		switch(emotionType){
-			case "contented":
-				contentedNum++;
-				recordToServer("contented");
-				break;
-			case "relaxed":
-				relaxedNum++;
-				recordToServer("relaxed");
-				break;
-			case "calm":
-				calmNum++;
-				recordToServer("calm");
-				break;
-			case "fatigued":
-				fatiguedNum++;
-				recordToServer("fatigued");
-				break;
-			case "bored":
-				boredNum++;
-				recordToServer("bored");
-				break;
-			case "depressed":
-				depressedNum++;
-				recordToServer("depressed");
-				break;
-			case "upset":
-				upsetNum++;
-				recordToServer("upset");
-				break;
-			case "stressed":
-				stressedNum++;
-				recordToServer("stressed");
-				break;
-			case "nervous":
-				nervousNum++;
-				recordToServer("nervous");
-				break;
-			case "alert":
-				alertNum++;
-				recordToServer("alert");
-				break;
-			case "excited":
-				excitedNum++;
-				recordToServer("excited");
-				break;
-			case "happy":
-				happyNum++;
-				recordToServer("happy");
-				break;
-		}
+		recordToServer(emotionType);
 	}
 	function recordToServer(emotion){
 		var emotionType = emotion;
 		var t = new Date();
         var timeData = t.getTime();
-
         socket.emit('emotionRecord', {time: timeData, emotions: emotionType});
         return false;
 	}
