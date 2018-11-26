@@ -33,56 +33,7 @@
 	function recordEmotion(emotion){
 		var emotionType = "";
 		emotionType = emotion;
-		switch(emotionType){
-			case "contented":
-				contentedNum++;
-				recordToServer("contented");
-				break;
-			case "relaxed":
-				relaxedNum++;
-				recordToServer("relaxed");
-				break;
-			case "calm":
-				calmNum++;
-				recordToServer("calm");
-				break;
-			case "fatigued":
-				fatiguedNum++;
-				recordToServer("fatigued");
-				break;
-			case "bored":
-				boredNum++;
-				recordToServer("bored");
-				break;
-			case "depressed":
-				depressedNum++;
-				recordToServer("depressed");
-				break;
-			case "upset":
-				upsetNum++;
-				recordToServer("upset");
-				break;
-			case "stressed":
-				stressedNum++;
-				recordToServer("stressed");
-				break;
-			case "nervous":
-				nervousNum++;
-				recordToServer("nervous");
-				break;
-			case "alert":
-				alertNum++;
-				recordToServer("alert");
-				break;
-			case "excited":
-				excitedNum++;
-				recordToServer("excited");
-				break;
-			case "happy":
-				happyNum++;
-				recordToServer("happy");
-				break;
-		}
+		recordToServer(emotionType);
 	}
 	function recordToServer(emotion){
 		var emotionType = emotion;
