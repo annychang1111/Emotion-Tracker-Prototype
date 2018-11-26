@@ -27,12 +27,13 @@ http.listen(PORT, () => console.log("Listening on localhost:" + PORT));
 
 io.on('connection', function (socket) {
 	console.log('a user connected', socket.id);
+	socket.emit('requestData', {allRecord: record, emotionTotal: emotionsResult});
 
 	socket.on('emotionRecord', function(timeData){
 		console.log(timeData);
 		emotionAnalysis(timeData.emotions);
 		record.push(timeData);
-		socket.emit('emotionRecord', {allRecord: record, emotionTotal: emotionsResult});
+		socket.emit('requestData', {allRecord: record, emotionTotal: emotionsResult});
 	})
 });
 
