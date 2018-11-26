@@ -37,18 +37,20 @@
 	function recordToServer(emotion){
 		var emotionType = emotion;
 		var t = new Date();
-        var timeData = t.getTime();
-        socket.emit('emotionRecord', {time: timeData, emotions: emotionType});
-        return false;
+        	var timeData = t.getTime();
+
+        	socket.emit('emotionRecord', {time: timeData, emotions: emotionType});
+        	return false;
 	}
 	function listenOn(){
-		socket.on('emotionRecord', function(record){
+		socket.on('requestData', function(record){
 			recordData = record.allRecord;
 			emotionResult = record.emotionTotal;
 		})
 	}
 	listenOn();
 	function printResult(){
+		socket.emit('requestData');
 		console.log(recordData);
 		console.log(emotionTags);
 		console.log(emotionResult);
