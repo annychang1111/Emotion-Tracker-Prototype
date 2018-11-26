@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i');
+body {
+	font-family: 'Roboto Mono', monospace;
+}
+button {
+	display: block;
+	width: 50vw;
+	margin: auto;
+	margin-top: 5vh;
+	padding: 2.5%;
+	border-radius: 5px;
+	font-family: 'Roboto Mono', monospace;
+}
+#emotionButtons {
+	margin-top: 5vh;
+}
+#emotionButtons button{
+	display: block;
+	width: 50vw;
+	margin: auto;
+	margin-bottom: 1vh;
+	padding: 2.5%;
+	border-radius: 5px;
+}
+#contented{
+	background-color: #aec697;
+}
+#relaxed{
+	background-color: #97c69c;
+}
+#calm{
+	background-color: #97c6b7;
+}
+#fatigued{
+	background-color: #97bac6;
+}
+#bored{
+	background-color: #97a3c6;
+}
+#depressed{
+	background-color: #a297c6;
+}
+#upset{
+	background-color: #bb97c6;
+}
+#stressed{
+	background-color: #c697bb;
+}
+#nervous{
+	background-color: #c697a3;
+} 
+#alert{
+	background-color: #c69797;
+}
+#excited{
+	background-color: #c6a997;
+} 
+#happy{
+	background-color: #c6be97;
+}
