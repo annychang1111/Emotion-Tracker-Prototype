@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Emotion Tracker</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- <link rel = "stylesheet" type = "text/css" href = "style.css" /> -->
+</head>
+<body>
+<div id="emotionButtons">
+<button id="contented" onclick="recordEmotion('contented')">Contented</button>
+<button id="relaxed" onclick="recordEmotion('relaxed')">Relaxed</button>
+<button id="calm" onclick="recordEmotion('calm')">Calm</button>
+<button id="fatigued" onclick="recordEmotion('fatigued')">Fatigued</button>
+<button id="bored" onclick="recordEmotion('bored')">Bored</button>
+<button id="depressed" onclick="recordEmotion('depressed')">Depressed</button>
+<button id="upset" onclick="recordEmotion('upset')">Upset</button>
+<button id="stressed" onclick="recordEmotion('stressed')">Stressed</button>
+<button id="nervous" onclick="recordEmotion('nervous')">Nervous</button>
+<button id="alert" onclick="recordEmotion('alert')">Alert</button>
+<button id="excited" onclick="recordEmotion('excited')">Excited</button>
+<button id="happy" onclick="recordEmotion('happy')">Happy</button>
+</div>
+<button onclick="printResult()">Print Result!</button>
+</body>
+</html>
+<script>
+	var socket = io();
+	var contentedNum = 0, relaxedNum = 0, calmNum = 0, fatiguedNum = 0, boredNum = 0, depressedNum = 0, upsetNum = 0, stressedNum = 0, nervousNum = 0, alertNum = 0, excitedNum = 0, happyNum = 0;
+	var recordData = [];
+	var emotionTags = ['contented', 'relaxed', 'calm', 'fatigued', 'bored', 'depressed', 'upset', 'stressed', 'nervous', 'alert', 'excited', 'happy'];
+	var emotionResult = [];
+	function recordEmotion(emotion){
+		var emotionType = "";
+		emotionType = emotion;
+		switch(emotionType){
+			case "contented":
+				contentedNum++;
+				recordToServer("contented");
+				break;
+			case "relaxed":
+				relaxedNum++;
+				recordToServer("relaxed");
+				break;
+			case "calm":
+				calmNum++;
+				recordToServer("calm");
+				break;
+			case "fatigued":
+				fatiguedNum++;
+				recordToServer("fatigued");
+				break;
+			case "bored":
+				boredNum++;
+				recordToServer("bored");
+				break;
+			case "depressed":
+				depressedNum++;
+				recordToServer("depressed");
+				break;
+			case "upset":
+				upsetNum++;
+				recordToServer("upset");
+				break;
+			case "stressed":
+				stressedNum++;
+				recordToServer("stressed");
+				break;
+			case "nervous":
+				nervousNum++;
+				recordToServer("nervous");
+				break;
+			case "alert":
+				alertNum++;
+				recordToServer("alert");
+				break;
+			case "excited":
+				excitedNum++;
+				recordToServer("excited");
+				break;
+			case "happy":
+				happyNum++;
+				recordToServer("happy");
+				break;
+		}
+	}
+	function recordToServer(emotion){
+		var emotionType = emotion;
+		var t = new Date();
+        var timeData = t.getTime();
+
+        socket.emit('emotionRecord', {time: timeData, emotions: emotionType});
+        return false;
+	}
+	function listenOn(){
+		socket.on('emotionRecord', function(record){
+			recordData = record.allRecord;
+			emotionResult = record.emotionTotal;
+		})
+	}
+	listenOn();
+	function printResult(){
+		console.log(recordData);
+		console.log(emotionTags);
+		console.log(emotionResult);
+	}
+</script>
+<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i');
+body {
+	font-family: 'Roboto Mono', monospace;
+}
+button {
+	display: block;
+	width: 50vw;
+	margin: auto;
+	margin-top: 5vh;
+	padding: 2.5%;
+	border-radius: 5px;
+	font-family: 'Roboto Mono', monospace;
+}
+#emotionButtons {
+	margin-top: 5vh;
+}
+#emotionButtons button{
+	display: block;
+	width: 50vw;
+	margin: auto;
+	margin-bottom: 1vh;
+	padding: 2.5%;
+	border-radius: 5px;
+}
+#contented{
+	background-color: #aec697;
+}
+#relaxed{
+	background-color: #97c69c;
+}
+#calm{
+	background-color: #97c6b7;
+}
+#fatigued{
+	background-color: #97bac6;
+}
+#bored{
+	background-color: #97a3c6;
+}
+#depressed{
+	background-color: #a297c6;
+}
+#upset{
+	background-color: #bb97c6;
+}
+#stressed{
+	background-color: #c697bb;
+}
+#nervous{
+	background-color: #c697a3;
+} 
+#alert{
+	background-color: #c69797;
+}
+#excited{
+	background-color: #c6a997;
+} 
+#happy{
+	background-color: #c6be97;
+}
+</style>
