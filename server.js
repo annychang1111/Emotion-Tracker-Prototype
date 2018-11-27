@@ -6,7 +6,8 @@ var io = require('socket.io')(http);
 // var io = socketIO(server);
 
 const path = require("path");
-// const pedometer = require('pedometer').pedometer;
+var fs = require('fs');
+var logger;
 
 // Configuration
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,16 @@ io.on('connection', function (socket) {
 	socket.on('emotionRecord', function(timeData){
 		console.log(timeData);
 		emotionAnalysis(timeData.emotions);
+		var time = timeData.time.toString();
+		var emotionType = timeData.emotions;
+
+		writeToFile();
+		logger.write('\n');
+		logger.write(time);
+		logger.write(': ');
+		logger.write(emotionType);
+		logger.end();
+
 		record.push(timeData);
 		socket.emit('requestData', {allRecord: record, emotionTotal: emotionsResult});
 	})
@@ -77,7 +88,15 @@ function emotionAnalysis(emotion){
 		case "happy":
 			happyNum++;
 			break;
+		case "blank":
+			break;
 	}
 	emotionsResult = [contentedNum, relaxedNum, calmNum,
 fatiguedNum, boredNum, depressedNum, upsetNum, stressedNum, nervousNum, alertNum, excitedNum, happyNum]
+}
+
+function writeToFile(){
+	logger = fs.createWriteStream('public/emotionReport.txt', {
+	    'flags': 'a' // 'a' means appending (old data will be preserved)
+	})
 }
