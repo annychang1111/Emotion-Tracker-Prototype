@@ -96,7 +96,7 @@ fatiguedNum, boredNum, depressedNum, upsetNum, stressedNum, nervousNum, alertNum
 }
 
 function writeToFile(){
-	logger = fs.createWriteStream('public/emotionReport.txt', {
+	logger = fs.createWriteStream('public/emotion.json', {
 	    'flags': 'a' // 'a' means appending (old data will be preserved)
 	})
 }
